@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mana Ooru News | Local News</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "DM Sans", "Noto Sans Telugu", sans-serif;
+            background: #f5f7fa;
+            color: #172536;
+        }
+
+        header {
+            background: white;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: #10243a;
+        }
+
+        .logo span {
+            color: #e23b3b;
+        }
+
+        .language button {
+            padding: 9px 16px;
+            border: none;
+            border-radius: 20px;
+            background: #10243a;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        nav {
+            background: #10243a;
+            padding: 16px 6%;
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .breaking {
+            background: white;
+            padding: 15px 6%;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .breaking strong {
+            background: #e23b3b;
+            color: white;
+            padding: 8px 12px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .heading {
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-left: 5px solid #e23b3b;
+            padding-left: 12px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .main-news {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .main-news img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .main-news .overlay {
+            position: absolute;
+            bottom: 0;
+            padding: 30px;
+            width: 100%;
+            background: linear-gradient(transparent, #000);
+        }
+
+        .main-news h1 {
+            font-size: 30px;
+            margin-top: 15px;
+        }
+
+        .side-news {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .side-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .side-card h3 {
+            padding: 15px;
+            font-size: 17px;
+        }
+
+        .categories {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .categories button {
+            padding: 10px 18px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .categories button.active {
+            background: #10243a;
+            color: white;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 18px;
+        }
+
+        .news-content h3 {
+            margin: 12px 0;
+            font-size: 18px;
+        }
+
+        .news-content p {
+            color: #6d7885;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .tag {
+            background: #e23b3b;
+            color: white;
+            padding: 5px 9px;
+            font-size: 11px;
+            border-radius: 4px;
+        }
+
+        .read-more {
+            margin-top: 15px;
+            border: none;
+            background: transparent;
+            color: #1769aa;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .newsletter {
+            margin-top: 40px;
+            background: #10243a;
+            color: white;
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .newsletter input {
+            padding: 12px;
+            margin-top: 20px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .newsletter button {
+            padding: 12px 20px;
+            background: #e23b3b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #0b1b2b;
+            color: white;
+            padding: 35px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                padding: 18px;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                gap: 18px;
+            }
+
+            .main-news {
+                height: 330px;
+            }
+
+            .main-news h1 {
+                font-size: 23px;
+            }
+
+            .newsletter input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">MANA OORU <span>NEWS</span></div>
+
+    <div class="language">
+        <button onclick="changeLanguage('en')">English</button>
+        <button onclick="changeLanguage('te')">తెలుగు</button>
+    </div>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#latest">Latest News</a>
+    <a href="#latest">Siddipet</a>
+    <a href="#latest">Telangana</a>
+    <a href="#latest">Politics</a>
+    <a href="#latest">Education</a>
+    <a href="#latest">Business</a>
+    <a href="#latest">Sports</a>
+</nav>
+
+<div class="breaking">
+    <strong id="breakingLabel">BREAKING</strong>
+    <p id="breakingText">
+        Welcome to Mana Ooru News – Your local news destination.
+    </p>
+</div>
+
+<div class="container">
+
+    <h2 class="heading">Top Stories</h2>
+
+    <section class="hero">
+
+        <div class="main-news">
+            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200" alt="News">
+
+            <div class="overlay">
+                <span class="tag">TOP STORY</span>
+                <h1 id="heroTitle">
+                    Local News, Community Updates and Telangana Headlines
+                </h1>
+                <p>Your town. Your stories.</p>
+            </div>
+        </div>
+
+        <div class="side-news">
+
+            <div class="side-card">
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600" alt="Education">
+                <h3>Education Updates from Your District</h3>
+            </div>
+
+            <div class="side-card">
+                <img src="https://images.unsplash.com/photo-1529109445044-5a7f4b6d5b8a?w=600" alt="Government">
+                <h3>Telangana Government Updates</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="latest">
+
+        <div class="categories">
+            <button class="active" onclick="filterNews('All',this)">All News</button>
+            <button onclick="filterNews('Local',this)">Local</button>
+            <button onclick="filterNews('Politics',this)">Politics</button>
+            <button onclick="filterNews('Education',this)">Education</button>
+            <button onclick="filterNews('Business',this)">Business</button>
+            <button onclick="filterNews('Sports',this)">Sports</button>
+        </div>
+
+        <h2 class="heading">Latest News</h2>
+
+        <div class="news-grid" id="newsContainer"></div>
+
+    </section>
+
+    <section class="newsletter">
+        <h2>Stay Connected With Your Town</h2>
+        <p>Get the latest local news and updates.</p>
+
+        <form onsubmit="subscribe(event)">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+</div>
+
+<footer>
+    <h2>MANA OORU NEWS</h2>
+    <p>Local News | Telangana | Siddipet</p>
+    <p>© 2026 Mana Ooru News. All Rights Reserved.</p>
+</footer>
+
+<script>
+
+const news = [
+    {
+        category: "Local",
+        image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=700",
+        en: "Local Infrastructure Development Updates",
+        te: "స్థానిక మౌలిక సదుపాయాల అభివృద్ధి తాజా సమాచారం",
+        enDesc: "Latest updates about roads, public facilities and local development.",
+        teDesc: "రహదారులు, ప్రజా సౌకర్యాలు మరియు స్థానిక అభివృద్ధి పనుల సమాచారం."
+    },
+    {
+        category: "Education",
+        image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=700",
+        en: "Education Updates for Students",
+        te: "విద్యార్థులకు విద్యా సంబంధిత తాజా సమాచారం",
+        enDesc: "School announcements, examinations and scholarship updates.",
+        teDesc: "పాఠశాల ప్రకటనలు, పరీక్షలు మరియు స్కాలర్‌షిప్‌ల సమాచారం."
+    },
+    {
+        category: "Politics",
+        image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=700",
+        en: "Telangana Government Announcements",
+        te: "తెలంగాణ ప్రభుత్వ ప్రకటనలు",
+        enDesc: "Important government decisions and public announcements.",
+        teDesc: "ప్రభుత్వ నిర్ణయాలు మరియు ప్రజా ప్రకటనలు."
+    },
+    {
+        category: "Business",
+        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700",
+        en: "Local Business and Market News",
+        te: "స్థానిక వ్యాపార మరియు మార్కెట్ వార్తలు",
+        enDesc: "Business developments and market information.",
+        teDesc: "వ్యాపార అభివృద్ధి మరియు మార్కెట్ సమాచారం."
+    },
+    {
+        category: "Sports",
+        image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=700",
+        en: "Local Sports News and Events",
+        te: "స్థానిక క్రీడా వార్తలు మరియు కార్యక్రమాలు",
+        enDesc: "Sports events, tournaments and local talent.",
+        teDesc: "క్రీడా కార్యక్రమాలు, టోర్నమెంట్లు మరియు స్థానిక ప్రతిభ."
+    },
+    {
+        category: "Local",
+        image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=700",
+        en: "Community Events and Local Updates",
+        te: "ప్రజా కార్యక్రమాలు మరియు స్థానిక సమాచారం",
+        enDesc: "Community events and useful public information.",
+        teDesc: "ప్రజా కార్యక్రమాలు మరియు ఉపయోగకరమైన సమాచారం."
+    }
+];
+
+let currentLanguage = "en";
+let currentCategory = "All";
+
+function displayNews() {
+
+    const container = document.getElementById("newsContainer");
+
+    const filtered = news.filter(item =>
+        currentCategory === "All" ||
+        item.category === currentCategory
+    );
+
+    container.innerHTML = filtered.map(item => `
+
+        <div class="news-card">
+
+            <img src="${item.image}" alt="${item.category} news">
+
+            <div class="news-content">
+
+                <span class="tag">${item.category}</span>
+
+                <h3>
+                    ${currentLanguage === "en" ? item.en : item.te}
+                </h3>
+
+                <p>
+                    ${currentLanguage === "en" ? item.enDesc : item.teDesc}
+                </p>
+
+                <button class="read-more" onclick="alert('Connect this story to your article page.')">
+                    ${currentLanguage === "en" ? "READ MORE →" : "మరింత చదవండి →"}
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+}
+
+function changeLanguage(language) {
+
+    currentLanguage = language;
+
+    document.getElementById("breakingLabel").innerText =
+        language === "en" ? "BREAKING" : "తాజా వార్త";
+
+    document.getElementById("breakingText").innerText =
+        language === "en"
+        ? "Welcome to Mana Ooru News – Your local news destination."
+        : "మనా ఊరు న్యూస్‌కు స్వాగతం – మీ స్థానిక వార్తల వేదిక.";
+
+    document.getElementById("heroTitle").innerText =
+        language === "en"
+        ? "Local News, Community Updates and Telangana Headlines"
+        : "స్థానిక వార్తలు, ప్రజా సమాచారం మరియు తెలంగాణ ముఖ్య వార్తలు";
+
+    displayNews();
+}
+
+function filterNews(category, button) {
+
+    currentCategory = category;
+
+    document.querySelectorAll(".categories button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    displayNews();
+}
+
+function subscribe(event) {
+
+    event.preventDefault();
+
+    alert("Thank you for subscribing!");
+
+}
+
+displayNews();
+
+</script>
+
+</body>
+</html>
