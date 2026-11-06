@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEWS24 - Login & Register</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #07152f, #123b68);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 900px;
+    min-height: 550px;
+    display: flex;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+}
+
+.left-panel {
+    width: 45%;
+    background: linear-gradient(150deg, #d71920, #8e1018);
+    color: white;
+    padding: 55px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo {
+    font-size: 38px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.logo span {
+    color: #ffd700;
+}
+
+.left-panel h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.left-panel p {
+    line-height: 1.7;
+    color: #ffe5e5;
+}
+
+.tagline {
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.right-panel {
+    width: 55%;
+    padding: 45px 50px;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+}
+
+.tabs button {
+    width: 50%;
+    padding: 13px;
+    border: none;
+    background: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #777;
+}
+
+.tabs button.active {
+    color: #d71920;
+    border-bottom: 3px solid #d71920;
+}
+
+.form h2 {
+    color: #142b49;
+    margin-bottom: 10px;
+}
+
+.form p {
+    color: #777;
+    margin-bottom: 22px;
+}
+
+.input-group {
+    margin-bottom: 17px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    border-color: #d71920;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #d71920;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.submit-btn:hover {
+    background: #a80e16;
+}
+
+.switch-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.switch-text a {
+    color: #d71920;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+@media(max-width: 700px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel, .right-panel {
+        width: 100%;
+    }
+
+    .left-panel {
+        padding: 30px;
+    }
+
+    .right-panel {
+        padding: 30px 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="left-panel">
+        <div class="logo">NEWS<span>24</span></div>
+
+        <h2>Welcome to NEWS24</h2>
+
+        <p>
+            Your trusted destination for breaking news,
+            politics, sports, entertainment and local updates.
+        </p>
+
+        <div class="tagline">
+            వార్తలు మీ ముందుకు...<br>
+            News at Your Fingertips!
+        </div>
+    </div>
+
+    <div class="right-panel">
+
+        <div class="tabs">
+            <button id="loginTab" class="active"
+                onclick="showLogin()">Login</button>
+
+            <button id="registerTab"
+                onclick="showRegister()">Register</button>
+        </div>
+
+        <!-- LOGIN FORM -->
+
+        <div class="form" id="loginForm">
+
+            <h2>Welcome Back!</h2>
+            <p>Login to access the latest news.</p>
+
+            <form onsubmit="loginUser(event)">
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail"
+                        placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword"
+                        placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Login
+                </button>
+
+            </form>
+
+            <div class="switch-text">
+                Don't have an account?
+                <a onclick="showRegister()">Register Now</a>
+            </div>
+
+        </div>
+
+        <!-- REGISTER FORM -->
+
+        <div class="form hidden" id="registerForm">
+
+            <h2>Create Account</h2>
+            <p>Register to stay updated with NEWS24.</p>
+
+            <form onsubmit="registerUser(event)">
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName"
+                        placeholder="Enter your full name" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="registerEmail"
+                        placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="registerPassword"
+                        placeholder="Create password"
+                        minlength="8" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword"
+                        placeholder="Confirm password" required>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+            <div class="switch-text">
+                Already have an account?
+                <a onclick="showLogin()">Login</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+function showLogin() {
+    document.getElementById("loginForm").classList.remove("hidden");
+    document.getElementById("registerForm").classList.add("hidden");
+
+    document.getElementById("loginTab").classList.add("active");
+    document.getElementById("registerTab").classList.remove("active");
+}
+
+function showRegister() {
+    document.getElementById("registerForm").classList.remove("hidden");
+    document.getElementById("loginForm").classList.add("hidden");
+
+    document.getElementById("registerTab").classList.add("active");
+    document.getElementById("loginTab").classList.remove("active");
+}
+
+function registerUser(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("fullName").value;
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPassword").value;
+    const confirm = document.getElementById("confirmPassword").value;
+
+    if (password !== confirm) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    alert("Registration form validated for " + name +
+          ". Backend registration is not connected yet.");
+
+    event.target.reset();
+    showLogin();
+}
+
+function loginUser(event) {
+    event.preventDefault();
+
+    alert("Login form submitted. Backend authentication is not connected yet.");
+}
+
+</script>
+
+</body>
+</html>
+
